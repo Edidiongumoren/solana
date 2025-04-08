@@ -2,19 +2,16 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - name: Setup Environment
+  - name: Install Solana Stack
     init: |
       # Install Rust
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
       source "$HOME/.cargo/env"
       
-      # Force-install Anchor 0.29.0
+      # Install Anchor 0.29.0
       cargo install --git https://github.com/coral-xyz/anchor anchor-cli --locked --tag v0.29.0 --force
       
       # Install Solana
       sh -c "$(curl -sSfL https://release.anza.xyz/v1.18.15/install)"
       echo 'export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"' >> ~/.bashrc
-      
-      # Persist Cargo
-      echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc
       echo 'source "$HOME/.cargo/env"' >> ~/.bashrc
